@@ -1,14 +1,18 @@
 import {useState} from 'react'
 
 function App() {
-  const [isCheck, setIsCheck] = useState(true);
+  const [town, setTown] = useState('Kyiv');
 
-  const handleChange = () => setIsCheck(prevCheck => !prevCheck);
+  const handleChange = (e) => setTown(e.target.value);
 
   return (
     <div >
-      {isCheck && <p>Абзац с каким-то текстом</p>}
-      <input type='checkbox' onChange={handleChange} checked={isCheck} />
+      <p>{town}</p>
+      <select onChange={handleChange}>
+        <option>Kyiv</option>
+        <option>Lviv</option>
+        <option>Cherkasy</option>
+      </select>
     </div>
   );
 }
