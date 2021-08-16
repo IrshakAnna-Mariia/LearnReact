@@ -6,7 +6,7 @@ function App() {
   return (
     <div>
       <ul>
-        {names.map((item) => <li key={item}>{item}</li>)}
+        {names.map((item, index) => <li key={item}>{item} - {index + 1}</li>)}
       </ul>
     </div>
   );
