@@ -1,6 +1,7 @@
 import {useState} from 'react'
 
 function App() {
+  const [towns, setTowns] = useState(['Kyiv', 'Lviv', 'Cherkasy']);
   const [town, setTown] = useState('Kyiv');
 
   const handleChange = (e) => setTown(e.target.value);
@@ -9,9 +10,7 @@ function App() {
     <div >
       <p>{town}</p>
       <select onChange={handleChange}>
-        <option>Kyiv</option>
-        <option>Lviv</option>
-        <option>Cherkasy</option>
+        {towns.map(item => <option key={item}>{item}</option>)}
       </select>
     </div>
   );
