@@ -1,12 +1,16 @@
 import {useState} from 'react';
 
 function App() {
-  const [show, setShow] = useState(true);
+  const [show, setShow] = useState(false);
   const [name, setName] = useState('Иван');
+  const [age, setAge] = useState(25);
+
+  const handleClick = () => setShow(true);
 
   return (
     <div>
-      {show ? <p>Привет, {name}!</p> : <p>Пока, {name}!</p>}
+      {show && <p>имя: {name}, возраст: {age}</p>}
+      <button onClick={handleClick}>Нажми на меня</button>
     </div>
   );
 }
