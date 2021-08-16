@@ -4,11 +4,11 @@ import './App.css';
 
 function App() {
   const classes = useStyles();
-  const attr = 'block'
+  const str = 'block'
 
 
   return (
-    <div id={attr} className={classes.root}>
+    <div className={str}>
       текст
     </div>
   );
