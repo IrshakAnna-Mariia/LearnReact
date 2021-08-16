@@ -1,31 +1,34 @@
 import {useState, useRef} from 'react'
 
 function App() {
-  const [users, setUsers] = useState(['Александр', 'Давид', 'Максим']);
+  const [hrefs, setHrefs] = useState([
+    { href: '1.html', text: 'ссылка 1' },
+    { href: '2.html', text: 'ссылка 2' },
+    { href: '3.html', text: 'ссылка 3' },
+    ]);
 
-  const newUserInput = useRef();
+  const hrefInput = useRef();
+  const textInput = useRef();
 
   const handleClickAdd = () => {
-    const newUser = newUserInput.current.value;
-    setUsers((prevUsers) => [...prevUsers, newUser]);
-    newUserInput.current.value = '';
+    setHrefs(prevHrefs => [...prevHrefs, {
+      href: hrefInput.current.value, 
+      text: textInput.current.value
+    }])
   };
-
-  const handleClickDelete = (e) => setUsers((prevUsers) => prevUsers.filter((item, index) => item + index !== e.target.value))
 
   return (
     <div>
       <ul>
-        {users.map((item, index) => (
-        <div key={item + index}>
-          <li>
-            {item}
-            <button value={item + index} onClick={handleClickDelete} >Удалить</button>
+        {hrefs.map((item) => (
+          <li key={item.href}>
+            <a href={item.href}>{item.text}</a>
           </li>
-          </div>))}
+        ))}
       </ul>
-      <input ref={newUserInput}  type='text' />
-      <button onClick={handleClickAdd}>Нажми на меня</button>
+      <input ref={hrefInput} type='text' placeholder='Ссылка' />
+      <input ref={textInput} type='text' placeholder='Текст' />
+      <button onClick={handleClickAdd}>Добавить</button>
     </div>
   );
 }
