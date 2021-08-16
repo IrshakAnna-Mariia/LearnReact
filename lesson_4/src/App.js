@@ -4,14 +4,22 @@ function App() {
   const [names, setNames] = useState(['Коля', 'Вася', 'Петя', 'Иван', 'Дима'])
 
   const handleClickAdd = () => setNames((prevNames) => [...prevNames, 'пункт'])
-  const handleClickDelete = () => setNames((prevNames) => [...prevNames.slice(0, prevNames.length - 1)])
+  const handleClickDelete = (e) => {
+    setNames((prevNames) => [...prevNames.filter((item, index) => item + index !== e.target.value)])
+  }
 
   return (
     <div>
       <ul>
-        {names.map((item) => <li key={item}>{item}</li>)}
+        {names.map((item, index) => (
+          <div key={item + index}>
+            <li>
+              {item}
+              <button onClick={handleClickDelete} value={item + index}>Удалить</button>
+            </li>
+          </div>
+        ))}
         <button onClick={handleClickAdd}>Добавить</button>
-        <button onClick={handleClickDelete}>Удалить</button>
       </ul>
     </div>
   );
