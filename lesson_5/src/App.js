@@ -5,19 +5,27 @@ function App() {
 
   const newUserInput = useRef();
 
-  const handleClick = () => {
+  const handleClickAdd = () => {
     const newUser = newUserInput.current.value;
     setUsers((prevUsers) => [...prevUsers, newUser]);
     newUserInput.current.value = '';
   };
 
+  const handleClickDelete = (e) => setUsers((prevUsers) => prevUsers.filter((item, index) => item + index !== e.target.value))
+
   return (
     <div>
       <ul>
-        {users.map((item) => <li key={item}>{item}</li>)}
+        {users.map((item, index) => (
+        <div key={item + index}>
+          <li>
+            {item}
+            <button value={item + index} onClick={handleClickDelete} >Удалить</button>
+          </li>
+          </div>))}
       </ul>
       <input ref={newUserInput}  type='text' />
-      <button onClick={handleClick}>Нажми на меня</button>
+      <button onClick={handleClickAdd}>Нажми на меня</button>
     </div>
   );
 }
