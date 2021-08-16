@@ -4,10 +4,11 @@ import './App.css';
 
 function App() {
   const classes = useStyles();
+  const text = 'текст';
 
   return (
     <div className={classes.root}>
-      текст
+      {text}
     </div>
   );
 }
