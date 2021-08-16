@@ -1,17 +1,34 @@
-import {useState} from 'react'
+import { useState } from "react";
 
 function App() {
-  const [towns, setTowns] = useState(['Kyiv', 'Lviv', 'Cherkasy']);
-  const [town, setTown] = useState('Kyiv');
+  const [number, setNumber] = useState(1);
 
-  const handleChange = (e) => setTown(e.target.value);
+  const handleChange = (e) => {
+    setNumber(e.target.value);
+  };
 
   return (
-    <div >
-      <p>{town}</p>
-      <select onChange={handleChange}>
-        {towns.map(item => <option key={item}>{item}</option>)}
-      </select>
+    <div>
+      <p>{number}</p>
+      <input
+        type="radio"
+        value="1"
+        name="test"
+        defaultChecked={number}
+        onChange={handleChange}
+      />
+      <input
+        type="radio"
+        value="2"
+        name="test"
+        onChange={handleChange}
+      />
+      <input
+        type="radio"
+        value="3"
+        name="test"
+        onChange={handleChange}
+      />
     </div>
   );
 }
