@@ -4,13 +4,13 @@ function App() {
   const [text, setText] = useState('');
 
   const handleChange = (e) => {
-    setText(() => e.target.value)
+    setText(e.target.value.toUpperCase())
   }
 
   return (
     <div>
-      <input type='text' defaultValue={''} onChange={handleChange}/>
       <p>{text}</p>
+      <input type='text' defaultValue={''} onChange={handleChange}/>
     </div>
   );
 }
