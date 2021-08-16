@@ -1,34 +1,21 @@
 import { useState } from "react";
 
 function App() {
-  const [number, setNumber] = useState(1);
+  const [texts, setTexts] = useState([]);
+  const [text, setText] = useState('');
 
-  const handleChange = (e) => {
-    setNumber(e.target.value);
+  const handleClickAddText = () => {
+    setTexts(prevTexts => [...prevTexts, text]);
+    setText('')
   };
 
+  const handleChangeInputText = ({target: {value}}) => setText(value);
+
   return (
-    <div>
-      <p>{number}</p>
-      <input
-        type="radio"
-        value="1"
-        name="test"
-        defaultChecked={number}
-        onChange={handleChange}
-      />
-      <input
-        type="radio"
-        value="2"
-        name="test"
-        onChange={handleChange}
-      />
-      <input
-        type="radio"
-        value="3"
-        name="test"
-        onChange={handleChange}
-      />
+    <div >
+      <textarea value={text} onChange={handleChangeInputText}></textarea>
+      <button onClick={handleClickAddText} >Добавить</button>
+      {texts.map(item => <p key={item} >{item}</p>)}
     </div>
   );
 }
