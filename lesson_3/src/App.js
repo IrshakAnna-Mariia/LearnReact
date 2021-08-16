@@ -10,7 +10,7 @@ function App() {
   return (
     <div>
       {show && <p>имя: {name}, возраст: {age}</p>}
-      <button onClick={handleClick}>Нажми на меня</button>
+      <button onClick={handleClick}>{show ? 'Скрыть': 'Показать'}</button>
     </div>
   );
 }
