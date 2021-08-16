@@ -1,16 +1,13 @@
 import {useState} from 'react';
 
 function App() {
-  const [show, setShow] = useState(false);
-  const [name, setName] = useState('Иван');
-  const [age, setAge] = useState(25);
-
-  const handleClick = () => show ? setShow(false) : setShow(true);
+  const [names, setNames] = useState(['Коля', 'Вася', 'Петя']);
 
   return (
     <div>
-      {show && <p>имя: {name}, возраст: {age}</p>}
-      <button onClick={handleClick}>{show ? 'Скрыть': 'Показать'}</button>
+      <ul>
+        {names.map((item) => <li key={item}>{item}</li>)}
+      </ul>
     </div>
   );
 }
