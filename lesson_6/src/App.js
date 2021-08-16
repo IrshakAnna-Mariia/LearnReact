@@ -1,14 +1,14 @@
 import {useState} from 'react'
 
 function App() {
-  const [text, setText] = useState('');
+  const [isCheck, setIsCheck] = useState('false');
 
-  const handleChange = (e) => setText(e.target.value);
+  const handleChange = (e) => setIsCheck(e.target.checked.toString());
 
   return (
     <div >
-      <p>Текст: {text}</p>
-      <textarea onChange={handleChange} ></textarea>
+      <p>{isCheck}</p>
+      <input type='checkbox' onChange={handleChange} />
     </div>
   );
 }
