@@ -2,23 +2,25 @@ import {useState, useRef} from 'react'
 import { format } from 'date-fns'
 
 function App() {
-  const [text, setText] = useState('');
-  const [year, setYear] = useState()
+  const [firesName, setFirstName] = useState()
+  const [lastName, setLastName] = useState()
+  const [patronymic, setPatronymic] = useState()
+
   const inputEL = useRef();
 
   const handleChange = (e) => {
-    const enteredText = e.target.value;
-    const reg = /^[0-9]{0,3}$/
-    if (reg.test(enteredText)) {
-      setText(enteredText);
-      enteredText ? setYear(format(new Date(), 'yyyy') - enteredText) : setYear()
-    }
+    const enteredText = e.target.value.split(' ');
+    setLastName(enteredText[0]);
+    enteredText.length >= 2 && setFirstName(enteredText[1]);
+    enteredText.length >= 3 && setPatronymic(enteredText[2]);
   }
 
   return (
     <div>
-      <p>{year}</p>
-      <input ref={inputEL} type='text' value={text} onChange={handleChange}/>
+      <input ref={inputEL} type='text' onChange={handleChange}/>
+      <p>{lastName}</p>
+      <p>{firesName}</p>
+      <p>{patronymic}</p>
     </div>
   );
 }
