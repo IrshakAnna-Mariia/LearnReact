@@ -1,9 +1,12 @@
+import {useState} from 'react'
 import useStyles from './styles';
 
 function App() {
   const classes = useStyles();
+  const [name, setName] = useState('Иван')
+  const [age, setAge] = useState(25)
 
-  const handleClick = () => alert('hello');
+  const handleClick = () => alert(name);
 
   return (
     <div>

@@ -1,8 +1,7 @@
 import {createUseStyles} from 'react-jss'
 
 const useStyles = createUseStyles({
-  button: {
-  }
+  button: {}
 })
 
 export default useStyles
