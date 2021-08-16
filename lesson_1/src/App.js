@@ -4,15 +4,12 @@ import './App.css';
 
 function App() {
   const classes = useStyles();
-  const text1 = <p>текст1</p>;
-  const text2 = <p>текст2</p>;
+  const attr = 'block'
 
 
   return (
-    <div className={classes.root}>
-      {text1}
-      <p>!!!</p>
-      {text2}
+    <div id={attr} className={classes.root}>
+      текст
     </div>
   );
 }
