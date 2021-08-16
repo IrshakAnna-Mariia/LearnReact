@@ -2,20 +2,23 @@ import {useState, useRef} from 'react'
 import { format } from 'date-fns'
 
 function App() {
-  const [text, setText] = useState()
+  const [summ, setSumm] = useState()
 
-  const inputEL = useRef();
+  const inputEL1 = useRef();
+  const inputEL2 = useRef();
 
   const handleClick = () => {
-    setText(inputEL.current.value);
-    inputEL.current.value = '';
+    setSumm(Number(inputEL1.current.value) + Number(inputEL2.current.value));
+    inputEL1.current.value = '';
+    inputEL2.current.value = '';
   };
 
   return (
     <div>
-      <input ref={inputEL} type='text'/>
+      <input ref={inputEL1} type='number'/>
+      <input ref={inputEL2} type='number'/>
       <button onClick={handleClick}>Submit</button>
-      <p>{text}</p>
+      <p>{summ}</p>
     </div>
   );
 }
