@@ -3,11 +3,13 @@ import './App.css';
 
 function App() {
   const classes = useStyles();
-  const show = false;
+  const arr = ['a', 'b', 'c', 'd', 'e']
 
   return (
     <div>
-      {show ? 'текст 1': 'текст 2'}
+      <ul>
+        {arr.map((value) => <li key={value}>{value}</li>)}
+      </ul>
     </div>
   );
 }
