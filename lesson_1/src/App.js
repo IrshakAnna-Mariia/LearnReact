@@ -3,11 +3,11 @@ import './App.css';
 
 function App() {
   const classes = useStyles();
-
+  const show = false;
 
   return (
-    <div className={classes.root}>
-      текст
+    <div>
+      {show ? 'текст 1': 'текст 2'}
     </div>
   );
 }
