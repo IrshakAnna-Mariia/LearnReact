@@ -1,14 +1,14 @@
 import {useState} from 'react'
 
 function App() {
-  const [isCheck, setIsCheck] = useState('false');
+  const [isCheck, setIsCheck] = useState(true);
 
-  const handleChange = (e) => setIsCheck(e.target.checked.toString());
+  const handleChange = () => setIsCheck(prevCheck => !prevCheck);
 
   return (
     <div >
-      <p>{isCheck}</p>
-      <input type='checkbox' onChange={handleChange} />
+      {isCheck && <p>Абзац с каким-то текстом</p>}
+      <input type='checkbox' onChange={handleChange} checked={isCheck} />
     </div>
   );
 }
