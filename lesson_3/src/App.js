@@ -5,7 +5,7 @@ function App() {
   const [name, setName] = useState('Иван');
   const [age, setAge] = useState(25);
 
-  const handleClick = () => setShow(true);
+  const handleClick = () => show ? setShow(false) : setShow(true);
 
   return (
     <div>
