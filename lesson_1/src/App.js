@@ -4,7 +4,7 @@ import './App.css';
 
 function App() {
   const classes = useStyles();
-  const text = 'текст';
+  const text = <p>текст</p>;
 
   return (
     <div className={classes.root}>
