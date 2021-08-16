@@ -3,11 +3,13 @@ import './App.css';
 
 function App() {
   const classes = useStyles();
-  const getText = () => <p>текст</p>
+  const getNum1 = () => 1;
+  const getNum2 = () => 2;
+  const result = getNum1() + getNum2();
 
   return (
     <div>
-      {getText()}
+      текст {result}
     </div>
   );
 }
