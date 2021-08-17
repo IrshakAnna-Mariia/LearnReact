@@ -1,30 +1,17 @@
 import { useState } from 'react';
 
 function App() {
-  const [isChecked, setIsChecked] = useState(false);
+  const [texts] = useState(['Первый параграф', 'Второй параграф', 'Третий параграф']);
+  const [currentText, setCurrentText] = useState(texts[0]);
 
-  const handleChangeChecked = ({target: {value}}) => {
-    switch (value) {
-      case 'Отмечено':
-        setIsChecked(true);
-        break;
-      case 'Не отмечено':
-        setIsChecked(false)
-        break;
-
-      default:
-        setIsChecked(prevCheck => !prevCheck)
-        break;
-    }
-  };
+  const handleChangeText = ({target: {value}}) => setCurrentText(value);
 
   return (
     <div >
-      <input type='checkbox' checked={isChecked} onChange={handleChangeChecked}/>
-      <select value={isChecked ? 'Отмечено' : 'Не отмечено'} onChange={handleChangeChecked} >
-        <option>Не отмечено</option>
-        <option>Отмечено</option>
+      <select onChange={handleChangeText} >
+        {texts.map(item => <option key={item} >{item}</option>)}
       </select>
+      <p>{currentText}</p>
     </div>
   );
 }
