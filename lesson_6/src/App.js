@@ -1,17 +1,29 @@
 import { useState } from 'react';
 
 function App() {
-  const [colors, setColors] = useState(['#000000', '#ff00ff', '#ff0000']);
-  const [currentColor, setCurrentColor] = useState('#000000');
+  const [isChecked, setIsChecked] = useState(false);
 
-  const handleChangeColor = ({target: {value}}) => setCurrentColor(value);
+  const handleChangeChecked = ({target: {value}}) => {
+    switch (value) {
+      case 'Отмечено':
+        setIsChecked(true);
+        break;
+      case 'Не отмечено':
+        setIsChecked(false)
+        break;
 
+      default:
+        setIsChecked(prevCheck => !prevCheck)
+        break;
+    }
+  };
 
   return (
     <div >
-      <p style={{color: currentColor}}>Какой-то текст</p>
-      <select onChange={handleChangeColor}>
-        {colors.map(item => <option key={item}>{item}</option>)}
+      <input type='checkbox' checked={isChecked} onChange={handleChangeChecked}/>
+      <select value={isChecked ? 'Отмечено' : 'Не отмечено'} onChange={handleChangeChecked} >
+        <option>Не отмечено</option>
+        <option>Отмечено</option>
       </select>
     </div>
   );
