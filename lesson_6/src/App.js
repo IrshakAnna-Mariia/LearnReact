@@ -1,17 +1,23 @@
 import { useState } from 'react';
 
 function App() {
-  const [texts] = useState(['Первый параграф', 'Второй параграф', 'Третий параграф']);
-  const [currentText, setCurrentText] = useState(texts[0]);
+  const [names, setNames] = useState(['Давид', 'Саша', 'Бодя']);
+  const [newName, setNewName] = useState('');
 
-  const handleChangeText = ({target: {value}}) => setCurrentText(value);
+  const handleChangeNewName = ({target: {value}}) => setNewName(value);
+  
+  const handleAddNewName = () => {
+    setNames(prevNames => prevNames.concat(newName));
+    setNewName('');
+  };
 
   return (
     <div >
-      <select onChange={handleChangeText} >
-        {texts.map(item => <option key={item} >{item}</option>)}
+      <select>
+        {names.map(item => <option key={item} >{item}</option>)}
       </select>
-      <p>{currentText}</p>
+      <input type='text' value={newName} onChange={handleChangeNewName} />
+      <button onClick={handleAddNewName} >Добавить</button>
     </div>
   );
 }
