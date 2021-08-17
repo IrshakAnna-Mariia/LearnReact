@@ -1,40 +1,23 @@
 import {useState} from 'react';
 
 function App() {
-  const [workers, setWorkers] = useState([
-    { name: 'John', lastName: 'Robertson', salary: 100, checked: true },
-    { name: 'David', lastName: 'Dubliakov', salary: 200, checked: true },
-    { name: 'Ben', lastName: 'Smith', salary: 300, checked: true },
-  ]);
-  const sum = workers.map(item => item.checked && item.salary).reduce((prev, curr) => prev + curr, 0);
+  const [texts, setTexts] = useState([
+    {text: 'Paragraf 1', visible: true},
+    {text: 'Paragraf 2', visible: true},
+    {text: 'Paragraf 3', visible: true},
+  ])
 
-  const handleChangeChecked = ({ target: { name } }) => {
-    setWorkers(prevWorkers => prevWorkers.map(item => 
-      item.name !== name ? item : { name, lastName: item.lastName, salary: item.salary, checked: !item.checked }));
-  }
+  const handleChangeVisible = ({target: {name}}) => setTexts(prevTexts => 
+    prevTexts.map(item => item.text !== name ? item : { text: name, visible: !item.visible}
+  ))
 
   return (
     <div>
-      <table>
-        <thead>
-          {workers.map(item => (
-            <tr key={item.lastName}>
-              <td>
-                <input 
-                  type='checkbox' 
-                  checked={item.checked} 
-                  name={item.name}
-                  onChange={handleChangeChecked}
-                />
-              </td>
-              <td>{item.mane}</td>
-              <td>{item.lastName}</td>
-              <td>{item.salary}</td>
-            </tr>
-          ))}
-        </thead>
-      </table>
-      <p>{sum}</p>
+      {texts.map(item => <div key={item.text}>
+          <input type='checkbox' name={item.text} checked={item.visible} onChange={handleChangeVisible}/>
+          {item.visible && <p>{item.text}</p>}
+        </div>
+      )}
     </div>
   );
 }
