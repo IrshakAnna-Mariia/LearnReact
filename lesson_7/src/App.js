@@ -1,49 +1,57 @@
 import {useState} from 'react';
-import {format} from 'date-fns'
 
 function App() {
-  const [notes, setNotes] = useState([
-    { text: 'First note', time: format(new Date(), "dd/MM/yyyy, HH:mm:ss") },
-    { text: 'Second note', time: format(new Date(), "dd/MM/yyyy, HH:mm:ss") }
+  const [workers, setWorkers] = useState([
+    { name: 'Roberto', surname: 'Carlos', salary: 1000 },
+    { name: 'Dan', surname: 'Williams', salary: 2000 },
+    { name: 'Anna', surname: 'Gomes', salary: 4000 }
   ])
-  const [textAdd, setTextAdd] = useState('');
-  const [input, setInput] = useState({name: '', value: '', visible: false})
 
-  const handleSetText = ({target: {value}}) => setTextAdd(value);
-
-  const handleAddNote = () => {
-    setNotes(prevNotes => prevNotes.concat({ text: textAdd, time: format(new Date(), "dd/MM/yyyy, HH:mm:ss")}));
-    setTextAdd('')
-  };
-
-  const handleDelete = ({target: {value}}) => setNotes(prevNotes => prevNotes.filter(({text}) => text !== value ));
-
-  const handleEdit = ({target: {name}}) => {
-    name !== input.name && setInput({ name, value: '', visible: true })
-    if (input.value) {
-      setNotes(prevNotes => prevNotes.map((item) => item.text !== input.name ? item : {text: input.value, time: item.time}));
+  const handleSortForName = () => setWorkers(prevWorekers => [...prevWorekers.sort((a, b) => {
+    const nameA = a.name.toUpperCase();
+    const nameB = b.name.toUpperCase();
+    if (nameA < nameB) {
+      return -1;
     }
-  };
+    if (nameA > nameB) {
+      return 1;
+    }
+    return 0;
+  })]);
 
-  const handleEditText = ({ target: { value, name } }) => setInput({ name, value, visible: true })
+  const handleSortForSurname = () => setWorkers(prevWorekers => [...prevWorekers.sort((a, b) => {
+    const surnameA = a.surname.toUpperCase();
+    const surnameB = b.surname.toUpperCase();
+    if (surnameA < surnameB) {
+      return -1;
+    }
+    if (surnameA > surnameB) {
+      return 1;
+    }
+    return 0;
+  })]);
+
+  const handleSortForSalary = () => setWorkers(prevWorekers => [...prevWorekers.sort((a, b) => a.salary - b.salary)]);
+
 
   return (
     <div>
-      {notes.map((item, index) => (
-        <div key={item.text}>
-          <h1>Note {index + 1}</h1>
-          <p>{item.text}</p>
-          <p>Create time: {item.time}</p>
-          <button name={item.text} onClick={handleEdit} >Edit</button>
-          {item.text === input.name && input.visible 
-            && <input name={item.text} onChange={handleEditText}/>
-          }
-          <button value={item.text} onClick={handleDelete}>Delete</button>
-        </div>
-      ))}
-
-      <textarea value={textAdd} onChange={handleSetText}/>
-      <button onClick={handleAddNote}>Add</button>
+      <table>
+        <tbody>
+          {workers.map(item => (
+            <tr>
+              <td>{item.name}</td>
+              <td>{item.surname}</td>
+              <td>{item.salary}</td>
+            </tr>
+          ))}
+          <tr>
+            <td><button onClick={handleSortForName}>Sort</button></td>
+            <td><button onClick={handleSortForSurname}>Sort</button></td>
+            <td><button onClick={handleSortForSalary}>Sort</button></td>
+          </tr>
+        </tbody>
+      </table>
     </div>
   );
 }
