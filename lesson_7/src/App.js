@@ -1,21 +1,22 @@
 import {useState} from 'react';
 
 function App() {
-  const [texts, setTexts] = useState([
-    {text: 'Paragraf 1', visible: true},
-    {text: 'Paragraf 2', visible: true},
-    {text: 'Paragraf 3', visible: true},
+  const [users, setUsers] = useState([
+    {name: 'Коля', surname: 'Иванов', age: 30, visible: true},
+    {name: 'Вася', surname: 'Петров', age: 40, visible: true},
+    {name: 'Петя', surname: 'Сидоров', age: 50, visible: true},
   ])
 
-  const handleChangeVisible = ({target: {name}}) => setTexts(prevTexts => 
-    prevTexts.map(item => item.text !== name ? item : { text: name, visible: !item.visible}
-  ))
+  const handleChangeVisible = ({target: {name}}) => {
+    setUsers(prevUsers => prevUsers.map(item => item.surname !== name ? item : 
+      { name: item.name, surname: item.surname, age: item.surname, visible: !item.visible}))
+  }
 
   return (
     <div>
-      {texts.map(item => <div key={item.text}>
-          <input type='checkbox' name={item.text} checked={item.visible} onChange={handleChangeVisible}/>
-          {item.visible && <p>{item.text}</p>}
+      {users.map(item => <div key={item.surname}>
+          <input type='checkbox' name={item.surname} checked={item.visible} onChange={handleChangeVisible}/>
+          {item.name} {item.visible && [item.surname, (item.age)].join(' ')}
         </div>
       )}
     </div>
