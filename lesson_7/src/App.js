@@ -1,45 +1,46 @@
 import {useState} from 'react';
+import useStyles from './styles';
 
 function App() {
-  const [items, setItems] = useState(['David', 'Boghdan', 'Alex']);
-  const [currentText, setCurrentText] = useState({value: '', name: ''})
-  const [visibleList, setVisibleList] = useState([]);
+  const [users, setUsers] = useState([
+    { name: 'Коля', age: 30 },
+    { name: 'Вася', age: 40 },
+    { name: 'Петя', age: 50 },
+  ]);
+  const [visibleInputs, setVisibleInputs] = useState([]);
+  const [inputText, setInputText] = useState({name: '', value: ''})
 
-  const handleClickAppearInput = ({ target }) => {
-    const name = target.getAttribute('name');
-    visibleList.find(el => el === name) 
-    ? setVisibleList(prevList => prevList.filter(item => item !== name)) 
-    : setVisibleList(prevList => [...prevList, name]);
+  const classes = useStyles();
+
+  const handleClickEdit = ({target: {name}}) => {
+    if (visibleInputs.find(el => el === name)) {
+      console.log(inputText.name, name)
+      if (inputText.name === name){
+        setUsers(prevUsers => prevUsers.map(item => item.name !== name ? item : { name, age: inputText.value }))
+        setVisibleInputs(prevList => prevList.filter(item => item !== name))
+      }
+    } else setVisibleInputs(prevList => [...prevList, name]);
   }
 
-  const handleChangeText = ({target: {name, value}}) => setCurrentText({name, value});
-
-  const handleBlurInput = () => {
-    visibleList.find(el => el === currentText.name)
-      ? setVisibleList(prevList => prevList.filter(item => item !== currentText.name))
-      : setVisibleList(prevList => [...prevList, currentText.name]);
-    setItems(prevItems => prevItems.map(item => item !== currentText.name ? item : currentText.value));
-  }
+  const handleChangeInputText = ({target: {name, value}}) => setInputText({name, value})
 
   return (
     <div>
-      <ul>
-        {items.map(item => (
-        <li key={item} >
-            <p 
-              name={item} 
-              onClick={handleClickAppearInput}
-              style={{display: 'inline'}}
-            >{item}</p>
-          <input 
-            type='text' 
-            name={item}
-            onChange={handleChangeText}
-            onBlur={handleBlurInput}
-            style={{ display: visibleList.find(el => el === item) ? 'inline' : 'none' }}
-          />
-        </li>))}
-      </ul>
+      <table>
+        <tbody>
+          {users.map(item => (
+            <tr key={item.name} >
+              <td className={classes.td}>{item.name}</td>
+              <td className={classes.td}>
+                {item.age}
+                <button name={item.name} onClick={handleClickEdit}>Редактировать</button>
+                {visibleInputs.find(el => el === item.name) 
+                && <input type='number' name={item.name} onChange={handleChangeInputText}/>}
+              </td>
+            </tr>
+          ))}
+        </tbody>
+      </table>
     </div>
   );
 }
