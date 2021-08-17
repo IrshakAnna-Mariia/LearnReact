@@ -1,21 +1,18 @@
-import { useState } from "react";
+import { useState } from 'react';
 
 function App() {
-  const [texts, setTexts] = useState([]);
-  const [text, setText] = useState('');
+  const [colors, setColors] = useState(['#000000', '#ff00ff', '#ff0000']);
+  const [currentColor, setCurrentColor] = useState('#000000');
 
-  const handleClickAddText = () => {
-    setTexts(prevTexts => [...prevTexts, text]);
-    setText('')
-  };
+  const handleChangeColor = ({target: {value}}) => setCurrentColor(value);
 
-  const handleChangeInputText = ({target: {value}}) => setText(value);
 
   return (
     <div >
-      <textarea value={text} onChange={handleChangeInputText}></textarea>
-      <button onClick={handleClickAddText} >Добавить</button>
-      {texts.map(item => <p key={item} >{item}</p>)}
+      <p style={{color: currentColor}}>Какой-то текст</p>
+      <select onChange={handleChangeColor}>
+        {colors.map(item => <option key={item}>{item}</option>)}
+      </select>
     </div>
   );
 }
