@@ -1,10 +1,9 @@
 import {createUseStyles} from 'react-jss';
 
 const useStyles = createUseStyles({
-  td: {
-    border: '1px solid black',
-    maxWidth: '153px'
-  }
+  input: props => ({
+    borderColor: props ? 'green' : 'red'
+  })
 })
 
 export default useStyles;
