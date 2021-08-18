@@ -1,44 +1,20 @@
 import {useState} from 'react';
-import UserInfoTableRow from './components/UserInfoTableRow';
-
-import usersList from './constants/usersList';
-import useStyle from './styles';
+import ListItem from './components/LiItem';
 
 function App() {
-  const [users, setUsers] = useState(usersList);
+  const [dataList, setDataList] = useState(['HTML5', 'CSS3', 'JavaScript', 'React']);
 
-  const classes = useStyle();
-
-  const deleteUser = (userId) => {
-    setUsers(prevUsers=> prevUsers.filter(user => user.id !== userId));
+  const editData = (name, newValue) => {
+    setDataList(prevData => prevData.map(item => item !== name ? item : newValue));
   };
 
   return (
-    <div className="App">
-      <table className={classes.table}>
-        <thead>
-          <tr>
-            {Object.keys(users[0]).map(key => (
-              <th className={classes.tableCell} key={key}> {key} </th>
-            ))}
-          </tr>
-        </thead>
-        <tbody>
-          {
-            users.map((user) => (
-              <UserInfoTableRow
-                key={user.firstName} 
-                id={user.id} 
-                firstName={user.firstName} 
-                lastName={user.lastName}
-                age={user.age}
-                link={user.link}
-                onClickLink={deleteUser}
-              />
-            ))
-          }
-        </tbody>
-      </table>
+    <div>
+      <ul>
+        {dataList.map(dataItem => (
+          <ListItem name={dataItem} onEdit={editData} key={dataItem}/>
+        ))}
+      </ul>
     </div>
   );
 }
