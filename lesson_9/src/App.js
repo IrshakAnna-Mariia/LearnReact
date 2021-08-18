@@ -1,20 +1,38 @@
 import {useState} from 'react';
-import ListItem from './components/LiItem';
+import ProductTableRow from './components/ProductTableRow';
+import productList from './constants/product';
 
 function App() {
-  const [dataList, setDataList] = useState(['HTML5', 'CSS3', 'JavaScript', 'React']);
+  const [products, setProducts] = useState(productList);
 
-  const editData = (name, newValue) => {
-    setDataList(prevData => prevData.map(item => item !== name ? item : newValue));
-  };
+  const deleteProdact = (id) => {
+    setProducts(prevProducts => prevProducts.filter(product => product.id !== id));
+  }
 
   return (
     <div>
-      <ul>
-        {dataList.map(dataItem => (
-          <ListItem name={dataItem} onEdit={editData} key={dataItem}/>
-        ))}
-      </ul>
+      <table>
+        <thead>
+          <tr>
+            <td> Name </td>
+            <td> Price </td>
+            <td> Number of products </td>
+            <td> Sum </td>
+          </tr>
+        </thead>
+        <tbody>
+          {products.map(product => (
+            <ProductTableRow 
+              key={product.id}
+              id={product.id}
+              name={product.name} 
+              price={product.price}
+              number={product.number}
+              onDelete={deleteProdact}
+            />
+          ))}
+        </tbody>
+      </table>
     </div>
   );
 }
