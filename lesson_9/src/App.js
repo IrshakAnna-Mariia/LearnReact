@@ -2,21 +2,25 @@ import {useState} from 'react';
 import UserInfoTableRow from './components/UserInfoTableRow';
 
 import usersList from './constants/usersList';
+import useStyle from './styles';
 
 function App() {
   const [users] = useState(usersList);
 
-  const showMessage = (userName) => alert(userName);
+  const classes = useStyle();
+
+  const showMessage = (userId) => alert(userId);
 
   return (
     <div className="App">
-      <table>
+      <table className={classes.table}>
         <thead>
           <tr>
-            <th> id </th>
-            <th> firstName </th>
-            <th> lastName </th>
-            <th> age </th>
+            <th className={classes.tableCell}> id </th>
+            <th className={classes.tableCell}> firstName </th>
+            <th className={classes.tableCell}> lastName </th>
+            <th className={classes.tableCell}> age </th>
+            <th className={classes.tableCell}> link </th>
           </tr>
         </thead>
         <tbody>
