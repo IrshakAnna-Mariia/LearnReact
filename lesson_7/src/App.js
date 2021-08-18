@@ -1,66 +1,82 @@
-import {useState} from 'react';
-import InputText from './InputText';
+import {useState, useEffect} from 'react';
+import MyButton from './components/Button';
+import MySelect from './components/MySelect';
+
+import workersList from './constants/workers';
+import useStyles from './styles';
 
 function App() {
-  const [workers, setWorkers] = useState([
-    { name: 'John', surname: 'Robertson', salary: 100, gender: 'Male' },
-    { name: 'David', surname: 'Dubliakow', salary: 200, gender: 'Male' },
-    { name: 'Ben', surname: 'Smith', salary: 300, gender: 'Male' },
-  ]);
-  const [name, setName] = useState('');
-  const [surname, setSurname] = useState('');
-  const [salary, setSalary] = useState('');
-  const [gender, setGender] = useState('Male');
+  const [workers] = useState(workersList);
+  const [filteredWorkers, setFilteredWorkers] = useState(workersList.filter((item, index) => index <= 9));
+  const [maxView, setMaxView] = useState(10);
+  const [pages, setPages] = useState(Math.ceil(workers.length / maxView));
+  const [currentPage, setCurrentPage] = useState(1)
 
-  const onChangeText = (name, value) => {
+  const classes = useStyles();
+
+  useEffect(() => {
+    setFilteredWorkers(workersList.filter((item, index) => index <= currentPage * maxView - 1 && index >= currentPage * maxView - maxView));
+    setPages(Math.ceil(workers.length / maxView));
+  }, [currentPage, maxView])
+
+  const onClickPage = (currPage) => setCurrentPage(currPage);
+
+  const onClickPrevNext = (name) => {
     switch (name) {
-      case 'Name':
-        setName(value);
+      case 'Prev':
+        setCurrentPage(prevCurrent => (prevCurrent > 1 && prevCurrent <= pages) ?  prevCurrent - 1 : prevCurrent);
         break;
-      case 'Second name':
-        setSurname(value);
+      case 'Next':
+        setCurrentPage(prevCurrent => (prevCurrent >= 1 && prevCurrent < pages) ? prevCurrent + 1 : prevCurrent);
         break;
-      case 'Salary':
-        setSalary(value);
-        break;
-    
       default:
         break;
     }
   }
 
-  const handleChangeGender = ({target: {value}}) => setGender(value);
+  const onChangeMaxView = (value) => setMaxView(value);
 
-  const handleAdd = () => setWorkers(prevWorkers => prevWorkers.concat({ name, surname, salary, gender}))
+  const pageButtons = function() {
+    const buttonsArray = []
+    for (let i = 0; i < pages; i++) {
+      buttonsArray.push(<MyButton 
+        className={currentPage === i + 1 ? classes.selectButton : null} 
+        key={i} 
+        name={i + 1} 
+        onClick={onClickPage}
+      />);
+    }
+    return buttonsArray;
+  }();
 
   return (
-    <div>
-      <table>
+    <div className={classes.div}>
+      <table className={classes.table}>
         <tbody>
-          {workers.map(item => (
+          {filteredWorkers.map(item => (
             <tr key={item.name}>
-              <td>{item.name}</td>
-              <td>{item.surname}</td>
-              <td>{item.salary}</td>
-              <td>{item.gender}</td>
+              <td className={classes.td}>{item.name}</td>
+              <td className={classes.td}>{item.surname}</td>
+              <td className={classes.td}>{item.salary}</td>
             </tr>
           ))}
         </tbody>
       </table>
 
-      <br/>
-
-      <InputText name='Name' onChange={onChangeText}/>
-      <InputText name='Second name' onChange={onChangeText}/>
-      <InputText name='Salary' onChange={onChangeText}/>
       <div>
-        Gender:
-        <select onChange={handleChangeGender}>
-          <option>Male</option>
-          <option>Female</option>
-        </select>
-        </div>
-      <button onClick={handleAdd}>Add emplayee</button>
+        {pageButtons}
+        <MyButton
+          key='prev'
+          name='Prev'
+          onClick={onClickPrevNext}
+        />
+        <MyButton
+          key='next'
+          name='Next'
+          onClick={onClickPrevNext}
+        />
+        <MySelect onChange={onChangeMaxView}/>
+      </div>
     </div>
   );
 }
