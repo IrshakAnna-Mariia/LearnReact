@@ -1,4 +1,5 @@
 import {useState} from 'react';
+import AddProductForm from './components/AddProductForm';
 import ProductTableRow from './components/ProductTableRow';
 import productList from './constants/product';
 
@@ -7,6 +8,10 @@ function App() {
 
   const deleteProdact = (id) => {
     setProducts(prevProducts => prevProducts.filter(product => product.id !== id));
+  }
+
+  const onAddProduct = (newProduct) => {
+    setProducts(prevProducts => prevProducts.concat(newProduct));
   }
 
   return (
@@ -33,6 +38,8 @@ function App() {
           ))}
         </tbody>
       </table>
+
+      <AddProductForm onAdd={onAddProduct}/>
     </div>
   );
 }
