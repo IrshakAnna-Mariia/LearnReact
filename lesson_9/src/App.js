@@ -6,6 +6,8 @@ import usersList from './constants/usersList';
 function App() {
   const [users] = useState(usersList);
 
+  const showMessage = () => alert('!');
+
   return (
     <div className="App">
       <table>
@@ -26,6 +28,8 @@ function App() {
                 firstName={user.firstName} 
                 lastName={user.lastName}
                 age={user.age}
+                link={user.link}
+                onClickLink={showMessage}
               />
             ))
           }
