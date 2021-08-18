@@ -1,6 +1,7 @@
 import {useState} from 'react';
 import AddProductForm from './components/AddProductForm';
 import ProductTableRow from './components/ProductTableRow';
+import SumPrice from './components/SumPrice';
 import productList from './constants/product';
 
 function App() {
@@ -38,6 +39,8 @@ function App() {
           ))}
         </tbody>
       </table>
+
+      <SumPrice priceArr={products.map(({price, number}) => ({price, number}))}/>
 
       <AddProductForm onAdd={onAddProduct}/>
     </div>
