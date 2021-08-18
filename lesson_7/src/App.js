@@ -1,29 +1,71 @@
 import {useState} from 'react';
 
 function App() {
-  const [cities, setCities] = useState([]);
-  const [city, setCity] = useState('');
-  const [selectedCity, setSelectedCity]= useState('');
+  const [currencies] = useState([
+    {name: 'Euro', exchangeRate: 1},
+    {name: 'Dolar', exchangeRate: 1.17},
+    {name: 'Hryvnia', exchangeRate: 31.25}
+  ]);
+  const [convertData, setConvertData] = useState({
+    from: 'Dolar',
+    to: 'Hryvnia',
+    convertNumber: 0,
+    result: ''
+  })
 
-  const handleClikAddCity = () => {
-    setCities(prevCities => city ? prevCities.concat(city) : prevCities);
-    setCity('');
+  const handleChangeConvertNumber = ({target: {value}}) => {
+    setConvertData(({ from, to, result }) => ({ from, to, convertNumber: value, result}))
+  }
+  console.log(convertData.result)
+
+  const handleCovertData = () => {
+    setConvertData(({ from, to, convertNumber }) => ({ from, to, convertNumber, result: getConvertCurrencies(currencies, convertData).toFixed(2)}));
   }
 
-  const handleChangeCity = ({target: {value}}) => setCity(value);
+  const handleConverFrom = ({target: {value}}) => {
+    setConvertData(({ to, convertNumber, result }) => ({ from: value, to, convertNumber, result }));
+  }
 
-  const handleSetCity = ({ target: { value } }) => setSelectedCity(value);
+  const handleConverTo = ({ target: { value } }) => {
+    setConvertData(({ from, convertNumber, result }) => ({ from, to: value, convertNumber, result }));
+  }
 
   return (
     <div>
-      <input value={city} onChange={handleChangeCity}/>
-      <button onClick={handleClikAddCity}>Add City</button>
-      <select value={selectedCity} onChange={handleSetCity}>
-        {cities.map(item => <option key={item} value={item}>{item}</option>)}
+      <input onChange={handleChangeConvertNumber}/>
+
+      From: 
+      <select value={convertData.from} onChange={handleConverFrom}>
+        {currencies.map(({name}) => (
+          <option key={name} value={name}>{name}</option>
+        ))}
       </select>
-      <p>{selectedCity}</p>
+
+      To: 
+      <select value={convertData.to} onChange={handleConverTo}>
+        {currencies.map(({ name }) => (
+          <option key={name} value={name}>{name}</option>
+        ))}
+      </select>
+
+      <button onClick={handleCovertData}> Convert </button>
+
+      <p>{convertData.result}</p>
     </div>
   );
+}
+
+function getConvertCurrencies(exchangeRateList, convertData) {
+  switch (convertData.from) {
+    case 'Euro':
+      const exchangeRate = exchangeRateList.find(currencies => currencies.name === convertData.to).exchangeRate;
+      return +convertData.convertNumber * exchangeRate;
+  
+    default:
+      const exchangeRateToEuro = exchangeRateList.find(currencies => currencies.name === convertData.from).exchangeRate;
+      const exchangeRateToSearch = exchangeRateList.find(currencies => currencies.name === convertData.to).exchangeRate;
+      return +convertData.convertNumber / exchangeRateToEuro * exchangeRateToSearch;
+  }
 }
 
 export default App;
