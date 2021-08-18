@@ -6,7 +6,7 @@ import usersList from './constants/usersList';
 function App() {
   const [users] = useState(usersList);
 
-  const showMessage = () => alert('!');
+  const showMessage = (userName) => alert(userName);
 
   return (
     <div className="App">
