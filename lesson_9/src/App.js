@@ -11,6 +11,13 @@ function App() {
     setProducts(prevProducts => prevProducts.filter(product => product.id !== id));
   }
 
+  const checkedProduct = (gettedId, isChecked) => {
+    setProducts(prevProducts => prevProducts.map(product => {
+      const {id, name, price, number} = product;
+      return product.id !== gettedId ? product : ({ id, name, price, number, checked: isChecked});
+    }));
+  }
+
   const onAddProduct = (newProduct) => {
     setProducts(prevProducts => prevProducts.concat(newProduct));
   }
@@ -20,6 +27,7 @@ function App() {
       <table>
         <thead>
           <tr>
+            <td></td>
             <td> Name </td>
             <td> Price </td>
             <td> Number of products </td>
@@ -35,12 +43,13 @@ function App() {
               price={product.price}
               number={product.number}
               onDelete={deleteProdact}
+              onCheck={checkedProduct}
             />
           ))}
         </tbody>
       </table>
 
-      <SumPrice priceArr={products.map(({price, number}) => ({price, number}))}/>
+      <SumPrice priceArr={products.filter(({checked}) => checked).map(({price, number}) => ({price, number}))}/>
 
       <AddProductForm onAdd={onAddProduct}/>
     </div>

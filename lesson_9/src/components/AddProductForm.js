@@ -9,15 +9,15 @@ const AddProductForm = ({onAdd}) => {
   })
 
   const handleChangeName = ({target: { value }}) => {
-    setNewProduct(({ price, number }) => ({ id: value, name: value, price, number }))
+    setNewProduct(({ price, number }) => ({ id: value, name: value, price, number, checked: true }))
   };
 
   const handleChangePrice = ({ target: { value } }) => {
-    setNewProduct(({ id, name, number }) => ({ id, name, price: value, number }))
+    setNewProduct(({ id, name, number }) => ({ id, name, price: value, number, checked: true }))
   };
 
   const handleChangeNumber = ({ target: { value } }) => {
-    setNewProduct(({ id, name, price }) => ({ id, name, price, number: value }))
+    setNewProduct(({ id, name, price }) => ({ id, name, price, number: value, checked: true }))
   };
 
   const handleAdd = () => {
@@ -28,13 +28,13 @@ const AddProductForm = ({onAdd}) => {
   return (
     <div>
       <p>Name</p>
-      <input onChange={handleChangeName} type='text'/>
+      <input value={newProduct.name} onChange={handleChangeName} type='text'/>
 
       <p>Price</p>
-      <input onChange={handleChangePrice} type='number'/>
+      <input value={newProduct.price}onChange={handleChangePrice} type='number'/>
 
       <p>Quantity</p>
-      <input onChange={handleChangeNumber} type='number'/>
+      <input value={newProduct.number}onChange={handleChangeNumber} type='number'/>
 
       <br/>
       <button onClick={handleAdd}>Add product</button>
