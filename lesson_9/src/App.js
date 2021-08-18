@@ -5,35 +5,35 @@ import usersList from './constants/usersList';
 import useStyle from './styles';
 
 function App() {
-  const [users] = useState(usersList);
+  const [users, setUsers] = useState(usersList);
 
   const classes = useStyle();
 
-  const showMessage = (userId) => alert(userId);
+  const deleteUser = (userId) => {
+    setUsers(prevUsers=> prevUsers.filter(user => user.id !== userId));
+  };
 
   return (
     <div className="App">
       <table className={classes.table}>
         <thead>
           <tr>
-            <th className={classes.tableCell}> id </th>
-            <th className={classes.tableCell}> firstName </th>
-            <th className={classes.tableCell}> lastName </th>
-            <th className={classes.tableCell}> age </th>
-            <th className={classes.tableCell}> link </th>
+            {Object.keys(users[0]).map(key => (
+              <th className={classes.tableCell} key={key}> {key} </th>
+            ))}
           </tr>
         </thead>
         <tbody>
           {
-            users.map((user, index) => (
+            users.map((user) => (
               <UserInfoTableRow
                 key={user.firstName} 
-                id={index + 1} 
+                id={user.id} 
                 firstName={user.firstName} 
                 lastName={user.lastName}
                 age={user.age}
                 link={user.link}
-                onClickLink={showMessage}
+                onClickLink={deleteUser}
               />
             ))
           }

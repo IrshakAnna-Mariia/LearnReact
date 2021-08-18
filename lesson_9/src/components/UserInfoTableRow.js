@@ -11,7 +11,7 @@ const UserInfoTableRow = ({ id, firstName, lastName, age, link, onClickLink}) =>
       <td className={classes.tableCell}>{firstName}</td>
       <td className={classes.tableCell}>{lastName}</td>
       <td className={classes.tableCell}>{age}</td>
-      <td className={classes.tableCell} onClick={handleClickLink}>{`${id}.${link}`}</td>
+      <td className={classes.tableCell} onClick={handleClickLink}>{link}</td>
     </tr>
   )
 }
