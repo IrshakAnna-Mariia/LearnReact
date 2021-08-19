@@ -1,10 +1,10 @@
 import React from 'react';
 
-import Task1 from './components/tasks/task1';
+import Task2 from './components/tasks/task2';
 
 const App = () => {
   
-  return <Task1 />
+  return <Task2 />
 }
 
 export default App;
