@@ -1,13 +1,11 @@
 import React from 'react';
 
-import { employees } from './utils/constants';
-
-import Table from './components/Table';
+import TableEmployees from './components/Table/Table';
 
 const Task1 = () => {
   return (
     <div>
-      <Table/>
+      <TableEmployees/>
     </div>
   );
 };
