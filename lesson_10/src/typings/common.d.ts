@@ -12,3 +12,9 @@ declare interface TestItemType {
   answer: string,
   settedAnswer: string
 }
+declare interface TestItemType4 {
+  question: string,
+  answers: string[],
+  rightAnswer: string,
+  settedAnswer: string
+}

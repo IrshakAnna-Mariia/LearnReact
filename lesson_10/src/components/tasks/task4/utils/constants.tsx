@@ -1,6 +1,4 @@
-import { TestItemType} from './constants.types'
-
-export const test: TestItemType[] = [
+export const test: TestItemType4[] = [
   {
     question: 'Питання 1?',
     answers: [
