@@ -30,3 +30,8 @@ declare interface TestItemTypeWithArr {
   rightAnswers: string[],
   settedAnswers: (string|undefined)[]
 }
+
+declare interface TodoList {
+  name: string,
+  isDone: boolean
+}
