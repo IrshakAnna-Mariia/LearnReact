@@ -1,16 +1,24 @@
 import React, { ChangeEvent } from "react";
 import { Typography, Card, Input } from "antd";
+import classNames from "classnames";
 
-import { PropTestItem } from "./TestItem.types";
+import useStyles from "./style";
+interface PropTestItem {
+  questionObj: TestItemType;
+  isCheckTest: boolean | undefined;
+  onChangeText(question: string, settedAnswer: string): void;
+}
+
+const { Text } = Typography;
 
 const TestItem = ({
   questionObj,
   isCheckTest,
   onChangeText,
 }: PropTestItem): JSX.Element => {
-  const isRight: boolean = questionObj.answer === questionObj.settedAnswer;
+  const classes = useStyles();
 
-  const { Text } = Typography;
+  const isRight: boolean = questionObj.answer === questionObj.settedAnswer;
 
   const handleChangeEnteredValue = ({
     target: { value },
@@ -18,7 +26,7 @@ const TestItem = ({
     onChangeText(questionObj.question, value);
 
   return (
-    <Card>
+    <Card className={classes.root}>
       <Text> {questionObj.question} </Text>
       <br />
       <Text type="secondary">
@@ -28,13 +36,10 @@ const TestItem = ({
             : `ваш ответ ${questionObj.settedAnswer}, не правильно, правильный ответ ${questionObj.answer}`)}
       </Text>
       <Input
-        style={{
-          border: isCheckTest
-            ? isRight
-              ? "1px solid green"
-              : "1px solid red"
-            : "1px solid ",
-        }}
+        className={classNames('someClass', 'someClass2', {
+          isRight: isCheckTest && isRight,
+          notRight: isCheckTest && !isRight,
+        })}
         value={questionObj.settedAnswer}
         onChange={handleChangeEnteredValue}
       />

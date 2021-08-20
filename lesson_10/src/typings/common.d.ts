@@ -6,3 +6,9 @@ declare interface EmployeesList {
   salaryOfDay: number,
   salary: number
 }
+
+declare interface TestItemType {
+  question: string,
+  answer: string,
+  settedAnswer: string
+}

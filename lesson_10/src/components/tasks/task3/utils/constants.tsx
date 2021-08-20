@@ -1,5 +1,3 @@
-import { TestItemType} from './constants.types'
-
 export const test: TestItemType[] = [
   {
     question: 'Питання 1?',

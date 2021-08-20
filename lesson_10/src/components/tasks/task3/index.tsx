@@ -1,42 +1,42 @@
-import React, {useState} from 'react';
-import { Button } from 'antd';
+import React, { useState } from "react";
+import { Button } from "antd";
 
-import Test from './components/Test/Test';
-
-interface BooleanState{
-  checkTest: boolean,
-  disabledButton: boolean,
-  visibleButton: boolean
-}
+import Test from "./components/Test/Test";
+import { test } from "./utils/constants";
 
 const Task2: React.FC = () => {
-  const [booleanState, setBooleanState] = useState<BooleanState>({
-    checkTest: false,
-    disabledButton: true,
-    visibleButton: false
-  });
-  
-  const handleChangeCheck = () => {
-    setBooleanState(prev => ({ ...prev, checkTest: true}));
-  };
+  const [tests, setTests] = useState<TestItemType[]>(test);
 
-  const handleChangeDisableButton = (disable: boolean) => {
-    setBooleanState(prev => ({ ...prev, disabledButton: disable }));
-  };
+  const [isCheckTest, setIsCheckTest] = useState<boolean>(false);
 
-  const handleChangeVisibleButton = (visible: boolean) => {
-    setBooleanState(prev => ({ ...prev, visibleButton: visible }));
+  const [currentTest, setCurrentTest] = useState<number>(1);
+
+  const isDisableBtn = () => {
+    const notEmptyAnswerLength = tests
+      .map((testItem) => testItem.settedAnswer)
+      .filter((answer) => answer !== "").length;
+    if (notEmptyAnswerLength === tests.length) {
+      return false;
+    }
+
+    return true;
   };
 
   return (
     <>
-      <Test 
-        isCheckTest={booleanState.checkTest}
-        onDisableButton={handleChangeDisableButton}
-        onVisibleButton={handleChangeVisibleButton}
+      <Test
+        isCheckTest={isCheckTest}
+        currentTest={currentTest}
+        setCurrentTest={setCurrentTest}
+        tests={tests}
+        setTests={setTests}
       />
-      <br/>
-      {booleanState.visibleButton && <Button disabled={booleanState.disabledButton} onClick={handleChangeCheck}>Здать тест</Button>}
+      <br />
+      {currentTest === tests.length && (
+        <Button disabled={isDisableBtn()} onClick={() => setIsCheckTest(true)}>
+          Здать тест
+        </Button>
+      )}
     </>
   );
 };

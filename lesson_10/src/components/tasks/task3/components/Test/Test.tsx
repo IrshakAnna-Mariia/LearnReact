@@ -1,19 +1,23 @@
-import React, { useState, useEffect } from "react";
+import React from "react";
 import { Space, Pagination } from "antd";
 
-import { test } from "../../utils/constants";
-import { TestItemType } from "../../utils/constants.types";
 import TestItem from "./TestItem/TestItem";
-import { PropsTest } from "./Test.types";
+
+interface PropsTest {
+  isCheckTest: boolean | undefined,
+  currentTest: number,
+  setCurrentTest: React.Dispatch<React.SetStateAction<number>>,
+  tests: TestItemType[],
+  setTests: React.Dispatch<React.SetStateAction<TestItemType[]>>
+}
 
 const Test = ({
   isCheckTest,
-  onDisableButton,
-  onVisibleButton,
+  currentTest,
+  setCurrentTest,
+  tests,
+  setTests,
 }: PropsTest): JSX.Element => {
-  const [tests, setTests] = useState<TestItemType[]>(test);
-  const [currentTestQ, setCurrentTestQ] = useState<number>(1);
-
   const onChengeTest = (question: string, settedAnswer: string) => {
     setTests((prevTests) =>
       prevTests.map((testItem) =>
@@ -24,24 +28,8 @@ const Test = ({
     );
   };
 
-  const handleChangeQuestion = (pageNumber: number) => setCurrentTestQ(pageNumber);
-
-  useEffect(() => {
-    if (currentTestQ === tests.length && !isCheckTest) {
-      onVisibleButton(true);
-    } else onVisibleButton(false);
-    // eslint-disable-next-line
-  }, [currentTestQ, isCheckTest]);
-
-  useEffect(() => {
-    const notEmptyAnswerLength = tests
-      .map((testItem) => testItem.settedAnswer)
-      .filter((answer) => answer !== "").length;
-    if (notEmptyAnswerLength === tests.length) {
-      onDisableButton(false);
-    } else onDisableButton(true);
-    // eslint-disable-next-line
-  }, [tests]);
+  const handleChangeQuestion = (pageNumber: number) =>
+    setCurrentTest(pageNumber);
 
   return (
     <Space direction="vertical">
@@ -55,21 +43,21 @@ const Test = ({
           />
         ))
       ) : (
-        <>
+        <div>
           <TestItem
-            key={tests[currentTestQ - 1].question}
-            questionObj={tests[currentTestQ - 1]}
+            key={tests[currentTest - 1].question}
+            questionObj={tests[currentTest - 1]}
             isCheckTest={isCheckTest}
             onChangeText={onChengeTest}
           />
           <Pagination
             simple
-            defaultCurrent={1}
+            current={currentTest}
             pageSize={1}
             total={tests.length}
             onChange={handleChangeQuestion}
           />
-        </>
+        </div>
       )}
     </Space>
   );
