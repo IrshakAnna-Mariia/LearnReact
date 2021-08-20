@@ -18,3 +18,15 @@ declare interface TestItemType4 {
   rightAnswer: string,
   settedAnswer: string
 }
+declare interface PropTestItem {
+  questionObj: TestItemType,
+  isCheckTest: boolean | undefined,
+  onChangeText(question: string, settedAnswers: string[]): void
+}
+
+declare interface TestItemTypeWithArr {
+  question: string,
+  answers: string[],
+  rightAnswers: string[],
+  settedAnswers: (string|undefined)[]
+}

@@ -1,10 +1,10 @@
 import React from 'react';
 
-import Task4 from './components/tasks/task4';
+import Task from './components/tasks/task5';
 
 const App = () => {
   
-  return <Task4 />
+  return <Task/>
 }
 
 export default App;
