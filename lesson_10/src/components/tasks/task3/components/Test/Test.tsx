@@ -14,21 +14,6 @@ const Test = ({
   const [tests, setTests] = useState<TestItemType[]>(test);
   const [currentTestQ, setCurrentTestQ] = useState<number>(1);
 
-  useEffect(() => {
-    if (currentTestQ === tests.length && !isCheckTest) {
-      onVisibleButton(true);
-    } else onVisibleButton(false);
-  }, [currentTestQ, isCheckTest]);
-
-  useEffect(() => {
-    const notEmptyAnswerLength = tests
-      .map((testItem) => testItem.settedAnswer)
-      .filter((answer) => answer !== "").length;
-    if (notEmptyAnswerLength === tests.length) {
-      onDisableButton(false);
-    } else onDisableButton(true);
-  }, [tests]);
-
   const onChengeTest = (question: string, settedAnswer: string) => {
     setTests((prevTests) =>
       prevTests.map((testItem) =>
@@ -39,7 +24,24 @@ const Test = ({
     );
   };
 
-  const handleChangeQuestion = (page: number) => setCurrentTestQ(page);
+  const handleChangeQuestion = (pageNumber: number) => setCurrentTestQ(pageNumber);
+
+  useEffect(() => {
+    if (currentTestQ === tests.length && !isCheckTest) {
+      onVisibleButton(true);
+    } else onVisibleButton(false);
+    // eslint-disable-next-line
+  }, [currentTestQ, isCheckTest]);
+
+  useEffect(() => {
+    const notEmptyAnswerLength = tests
+      .map((testItem) => testItem.settedAnswer)
+      .filter((answer) => answer !== "").length;
+    if (notEmptyAnswerLength === tests.length) {
+      onDisableButton(false);
+    } else onDisableButton(true);
+    // eslint-disable-next-line
+  }, [tests]);
 
   return (
     <Space direction="vertical">
@@ -63,7 +65,8 @@ const Test = ({
           <Pagination
             simple
             defaultCurrent={1}
-            total={tests.length * 10}
+            pageSize={1}
+            total={tests.length}
             onChange={handleChangeQuestion}
           />
         </>

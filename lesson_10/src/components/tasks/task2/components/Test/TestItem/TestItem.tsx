@@ -1,15 +1,21 @@
-import React, {ChangeEvent, useState} from 'react';
-import { Typography, Card, Input } from 'antd';
+import React, { ChangeEvent, useState } from "react";
+import { Typography, Card, Input } from "antd";
 
-import { PropTestItem } from './TestItem.types';
+import { PropTestItem } from "./TestItem.types";
 
-const TestItem = ({ questionObj, isCheckTest, onChangeText}: PropTestItem): JSX.Element => {
-  const [enteredAnswer, setEnteredAnswer] = useState<string>('');
+const { Text } = Typography;
+
+const TestItem = ({
+  questionObj,
+  isCheckTest,
+  onChangeText,
+}: PropTestItem): JSX.Element => {
+  const [enteredAnswer, setEnteredAnswer] = useState<string>("");
   const isRight: boolean = questionObj.answer === questionObj.settedAnswer;
 
-  const { Text } = Typography;
-
-  const handleChangeEnteredValue = ({ target: { value } }: ChangeEvent<HTMLInputElement>): void => {
+  const handleChangeEnteredValue = ({
+    target: { value },
+  }: ChangeEvent<HTMLInputElement>): void => {
     onChangeText(questionObj.question, value);
     setEnteredAnswer(value);
   };
@@ -17,19 +23,26 @@ const TestItem = ({ questionObj, isCheckTest, onChangeText}: PropTestItem): JSX.
   return (
     <Card>
       <Text> {questionObj.question} </Text>
-      <br/>
+      <br />
       <Text type="secondary">
-        {isCheckTest && (isRight
-          ? `ваш ответ ${questionObj.settedAnswer}, правильно`
-          : `ваш ответ ${questionObj.settedAnswer}, не правильно, правильный ответ ${questionObj.answer}`)}
+        {isCheckTest &&
+          (isRight
+            ? `ваш ответ ${questionObj.settedAnswer}, правильно`
+            : `ваш ответ ${questionObj.settedAnswer}, не правильно, правильный ответ ${questionObj.answer}`)}
       </Text>
-      <Input 
-        style={{ border: isCheckTest ? (isRight ? '1px solid green' : '1px solid red') : '1px solid '}}
-        value={enteredAnswer} 
+      <Input
+        style={{
+          border: isCheckTest
+            ? isRight
+              ? "1px solid green"
+              : "1px solid red"
+            : "1px solid #000",
+        }}
+        value={enteredAnswer}
         onChange={handleChangeEnteredValue}
       />
     </Card>
-  )
-}
+  );
+};
 
 export default TestItem;

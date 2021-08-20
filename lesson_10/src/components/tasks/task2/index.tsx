@@ -5,13 +5,12 @@ import Test from './components/Test/Test';
 
 const Task2: React.FC = () => {
   const [checkTest, setCheckTest] = useState<boolean>(false);
-
+  
   const handleChangeCheck = () => setCheckTest(true);
 
   return (
     <>
       <Test isCheckTest={checkTest}/>
-      <br/>
       <Button onClick={handleChangeCheck}>Здать тест</Button>
     </>
   );
