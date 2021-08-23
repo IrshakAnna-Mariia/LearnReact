@@ -1,6 +1,6 @@
 import React from 'react';
 
-import Task from './components/tasks/task6';
+import Task from './components/tasks/task7';
 
 const App = () => {
   

@@ -35,3 +35,15 @@ declare interface TodoList {
   name: string,
   isDone: boolean
 }
+
+declare interface EventsEl {
+  date: string,
+  message: string,
+  isDone: boolean
+}
+
+declare interface EventsOrg {
+  allEvents: EventsEl[],
+  currEvents: EventsEl[],
+  currDate: string
+}
