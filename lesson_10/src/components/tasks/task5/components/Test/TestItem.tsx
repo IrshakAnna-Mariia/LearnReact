@@ -1,6 +1,6 @@
-import React from "react";
+import React, { FC } from "react";
 import classNames from "classnames";
-import { Typography, Card, Space, Checkbox, RadioChangeEvent } from "antd";
+import { Typography, Card, Space, Checkbox } from "antd";
 import { CheckboxChangeEvent } from "antd/lib/checkbox/Checkbox";
 
 import useStyles from "../../styles";
@@ -12,11 +12,11 @@ interface PropTestItemTask5 {
   onChangeText(question: string, settedAnswers: (string | undefined)[]): void;
 }
 
-const TestItem = ({
+const TestItem: FC<PropTestItemTask5> = ({
   questionObj,
   isCheckTest,
   onChangeText,
-}: PropTestItemTask5): JSX.Element => {
+}) => {
   const classes = useStyles();
   const isRight =
     questionObj.rightAnswers.length === questionObj.settedAnswers.length &&
@@ -67,11 +67,11 @@ const TestItem = ({
                   isRight:
                     isCheckTest &&
                     questionObj.settedAnswers.includes(answer) &&
-                    isRight,
+                    questionObj.rightAnswers.includes(answer),
                   notRight:
                     isCheckTest &&
                     questionObj.settedAnswers.includes(answer) &&
-                    !isRight,
+                    !questionObj.rightAnswers.includes(answer),
                 })}
               >
                 {answer}

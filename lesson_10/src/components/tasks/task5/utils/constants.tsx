@@ -18,7 +18,7 @@ export const test: TestItemTypeWithArr[] = [
       'Відповідь 3',
       'Відповідь 4',
     ],
-    rightAnswers: ['Відповідь 2'],
+    rightAnswers: ['Відповідь 2', 'Відповідь 3'],
     settedAnswers: []
   },
   {

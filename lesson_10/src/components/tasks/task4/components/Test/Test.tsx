@@ -42,7 +42,7 @@ const Test = ({
           />
         ))
       ) : (
-        <>
+        <div>
           <TestItem
             key={tests[currentTest - 1].question}
             questionObj={tests[currentTest - 1]}
@@ -55,7 +55,7 @@ const Test = ({
             total={tests.length * 10}
             onChange={handleChangeQuestion}
           />
-        </>
+        </div>
       )}
     </Space>
   );
