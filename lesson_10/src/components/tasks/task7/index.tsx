@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import { Space } from "antd";
+import {format} from "date-fns";
 
 import Calendar from "./Calendar";
 import AddNew from "./AddNew";
@@ -7,22 +8,11 @@ import EventView from "./EventView";
 
 const Task7: React.FC = () => {
   const [events, setEvents] = useState<EventsOrg>({
-    allEvents: [
-      {
-        date: "2021-23-08",
-        message: "some message",
-        isDone: true,
-      },
-    ],
-    currEvents: [
-      {
-        date: "2021-23-08",
-        message: "some message",
-        isDone: true,
-      },
-    ],
-    currDate: "2021-23-08",
+    allEvents: [],
+    currEvents: [],
+    currDate: format(new Date(), 'yyyy-dd-MM'),
   });
+  const [isViewEvents, setIsViewEvents] = useState<boolean>(true);
 
   const setCurrDate = (currDate: string) => {
     setEvents((prevEvents) => ({
@@ -41,7 +31,7 @@ const Task7: React.FC = () => {
     }));
   };
 
-  const onDelete = (deleteEvent: EventsEl) => {
+  const deleteEvent = (deleteEvent: EventsEl) => {
     setEvents((prevEvents) => ({
       ...prevEvents,
       allEvents: prevEvents.allEvents.filter(
@@ -68,7 +58,7 @@ const Task7: React.FC = () => {
     );
   };
 
-  const onEdit = (editEvent: EventsEl, newMessage: string) => {
+  const editEvent = (editEvent: EventsEl, newMessage: string) => {
     setEvents((prevEvents) => ({
       ...prevEvents,
       allEvents: getNewEditedEvent(
@@ -106,16 +96,22 @@ const Task7: React.FC = () => {
 
   return (
     <Space direction="vertical">
-      <Calendar events={events.allEvents} setCurrDate={setCurrDate} />
-      <AddNew date={events.currDate} onAddNew={onAdd} />
-      {events.currEvents.map((event) => (
-        <EventView
-          event={event}
-          onDelete={onDelete}
-          onEdit={onEdit}
-          onChangeDoneStatus={onChangeDoneStatus}
-        />
-      ))}
+      <Calendar events={events.allEvents} setCurrDate={setCurrDate} onChangeMode={setIsViewEvents}/>
+      {
+        isViewEvents && (
+          <div>
+            <AddNew date={events.currDate} onAddNew={onAdd} />
+            {events.currEvents.map((event) => (
+              <EventView
+                event={event}
+                onDelete={deleteEvent}
+                onEdit={editEvent}
+                onChangeDoneStatus={onChangeDoneStatus}
+              />
+            ))}
+          </div>
+        ) 
+      }
     </Space>
   );
 };
