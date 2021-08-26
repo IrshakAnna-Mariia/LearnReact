@@ -99,7 +99,7 @@ const Task7: React.FC = () => {
       <Calendar events={events.allEvents} setCurrDate={setCurrDate} onChangeMode={setIsViewEvents}/>
       {
         isViewEvents && (
-          <div>
+          <Space direction='vertical'>
             <AddNew date={events.currDate} onAddNew={onAdd} />
             {events.currEvents.map((event) => (
               <EventView
@@ -109,7 +109,7 @@ const Task7: React.FC = () => {
                 onChangeDoneStatus={onChangeDoneStatus}
               />
             ))}
-          </div>
+          </Space>
         ) 
       }
     </Space>

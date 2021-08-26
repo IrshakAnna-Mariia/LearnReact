@@ -17,7 +17,8 @@ const TaskCalendar = ({
   const onSelectChange = (value: any) =>
     setCurrDate(value.format("YYYY-DD-MM"));
 
-  const onPanelChange = (_: any, mode: any) => onChangeMode(mode === 'month' ? true : false);
+  const onPanelChange = (_: any, mode: any) =>
+    onChangeMode(mode === "month" ? true : false);
 
   const dateCellRender = (value: any) => {
     const currCellData = value.format("YYYY-DD-MM");
@@ -35,7 +36,13 @@ const TaskCalendar = ({
     }
   };
 
-  return <Calendar onSelect={onSelectChange} dateCellRender={dateCellRender} onPanelChange={onPanelChange}/>;
+  return (
+    <Calendar
+      onSelect={onSelectChange}
+      dateCellRender={dateCellRender}
+      onPanelChange={onPanelChange}
+    />
+  );
 };
 
 export default TaskCalendar;

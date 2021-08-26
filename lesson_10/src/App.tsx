@@ -1,9 +1,8 @@
 import React from 'react';
 
-import Task from './components/tasks/task7';
+import Task from './components/tasks/task8';
 
 const App = () => {
-  
   return <Task/>
 }
 
