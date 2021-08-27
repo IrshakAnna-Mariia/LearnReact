@@ -23,7 +23,14 @@ const useStyles = createUseStyles({
             width: '3vw', 
             height: '3vw', 
             textAlign: 'center', 
-            border: '1px solid black'
+            border: '1px solid black',
+            fontSize: '3vw',
+            color: 'white',
+            lineHeight: 1,
+          },
+
+          '& .isSelect': {
+            backgroundColor: 'black',
           }
         }
       }
