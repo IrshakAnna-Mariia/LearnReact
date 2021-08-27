@@ -85,7 +85,7 @@ const Task8: FC = () => {
     if (!winner) {
       transponseArray().forEach((row) => {
         checkGameRow(row);
-        
+
         return false;
       });
 
@@ -96,6 +96,21 @@ const Task8: FC = () => {
 
   useEffect(() => {
     checkGameField(gameInfo.arrayStatus, gameInfo.winner);
+  }, [gameInfo.arrayStatus]);
+
+  useEffect(() => {
+    const isFullField = gameInfo.arrayStatus
+      .map((row) => {
+        return row.map((cell) => cell === -1).includes(true);
+      })
+      .every((item) => item === false);
+
+    if (isFullField) {
+      setGameInfo((prevGameInfo) => ({
+        ...prevGameInfo,
+        winner: "Nobady",
+      }));
+    }
   }, [gameInfo.arrayStatus]);
 
   return (
